@@ -14,9 +14,6 @@ app.get("/", (request, response) => {
   return response.status(234).send("Welcome To MERN Stack Tutorial!!!");
 });
 
-
-
-
 // Route for save a new book POST
 app.post("/books", async (request, response) => {
   try {
@@ -44,10 +41,6 @@ app.post("/books", async (request, response) => {
   }
 });
 
-
-
-
-
 //Routs for GET all Databases from
 app.get("/books", async (request, response) => {
   try {
@@ -55,13 +48,32 @@ app.get("/books", async (request, response) => {
 
     return response.status(200).send({
       count: books.length,
-      data: books
+      data: books,
     });
   } catch (error) {
     console.log(error.message);
     response.status(500).send({ message: error.message });
   }
 });
+
+
+
+
+//Routs for GET all Databases from by Id
+app.get("/books/:id", async (request, response) => {
+  try {
+    const { id } = request.params;
+    const book = await Book.findById(id);
+
+    return response.status(200).json(book);
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
+});
+//Routs for GET all Databases from by Id
+
+
 
 
 
